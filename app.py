@@ -35,16 +35,17 @@ def postprocess_output(L_input, ab_output):
 
 
 st.title("Greyscale Image Colorization (CGAN)")
-st.write("Upload a grayscale image and see it colorized using a trained CGAN model (ONNX).")
+st.write("Upload a grayscale image and see it colorized using a trained CGAN model.")
 
-uploaded_file = st.file_uploader("Upload an image (grayscale or color)", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Upload an image (grayscale)", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Original Image", use_column_width=True)
+    st.image(image, caption="Original Image", use_container_width=True)
+
 
     L_input = preprocess_image(image)
     ab_output = run_generator(L_input)
 
     colorized_image = postprocess_output(L_input, ab_output)
-    st.image(colorized_image, caption="Colorized Image", use_column_width=True)
+    st.image(colorized_image, caption="Colorized Image", use_container_width=True)
